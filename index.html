@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mi lista de la compra</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <img
+            src="fotos/comida.jpg"
+            alt="Montón de frutas frescas como bananas, manzanas, naranjas y fresas"
+            class="imagen-frutas"
+        >
+
+        <div class="titulo-encabezado">
+            <h1>Mi lista de la compra</h1>
+            <p>Organiza tus compras, paso a paso</p>
+        </div>
+    </header>
+
+    <main class="contenedor">
+        
+        <form id="formulario-producto">
+            <label for="input-producto">Agregar un producto</label>
+
+            <div class="grupo-entrada">
+                <input
+                    type="text"
+                    id="input-producto"
+                    placeholder="Escribe un producto"
+                    autocomplete="off"
+                >
+
+                <button type="submit">Agregar</button>
+            </div>
+        </form>
+
+        <section class="seccion-lista">
+            <div class="barra-lista">
+                <h2>Mi lista</h2>
+
+                <button id="btn-ordenar" type="button">
+                    Ordenar A-Z
+                </button>
+            </div>
+
+            <p id="mensaje-vacio">
+                No hay productos en la lista. Agrega algunos productos para comenzar.
+            </p>
+
+            <ul id="lista-productos"></ul>
+        </section>
+
+    </main>
+
+    <footer class="pie-pagina">
+        <p>♥ ¡Buenas compras!</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

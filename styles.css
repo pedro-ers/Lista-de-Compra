@@ -1,0 +1,245 @@
+/* =====================================
+   1. CONFIGURACIÓN GENERAL
+===================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f7f2;
+    color: #29382f;
+}
+
+
+/* =====================================
+   2. ENCABEZADO
+===================================== */
+
+.encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 45px;
+    padding: 25px 40px;
+    background-color: #fffdf7;
+    border-bottom: 1px solid #e5e9df;
+}
+
+.imagen-frutas {
+    width: 300px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.titulo-encabezado h1 {
+    margin: 0 0 10px;
+    color: #246344;
+    font-size: 36px;
+}
+
+.titulo-encabezado p {
+    margin: 0;
+    color: #718078;
+    font-size: 17px;
+}
+
+
+/* =====================================
+   3. CONTENEDOR PRINCIPAL
+===================================== */
+
+.contenedor {
+    width: 90%;
+    max-width: 850px;
+    margin: 45px auto;
+    padding: 30px;
+    background-color: white;
+    border: 1px solid #e6ebe5;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(35, 75, 50, 0.07);
+}
+
+
+/* =====================================
+   4. FORMULARIO
+===================================== */
+
+#formulario-producto label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #405548;
+}
+
+.grupo-entrada {
+    display: flex;
+    gap: 12px;
+}
+
+#input-producto {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #d5dfd6;
+    border-radius: 9px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#input-producto:focus {
+    border-color: #3d9667;
+    box-shadow: 0 0 0 3px rgba(61, 150, 103, 0.12);
+}
+
+
+/* =====================================
+   5. BOTONES
+===================================== */
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+#formulario-producto button {
+    background-color: #32845a;
+    color: white;
+}
+
+#formulario-producto button:hover {
+    background-color: #246b47;
+    transform: translateY(-2px);
+}
+
+#btn-ordenar {
+    background-color: #e9f1eb;
+    color: #326447;
+}
+
+#btn-ordenar:hover {
+    background-color: #d9e8dc;
+}
+
+
+/* =====================================
+   6. SECCIÓN DE PRODUCTOS
+===================================== */
+
+.seccion-lista {
+    margin-top: 35px;
+}
+
+.barra-lista {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e8ede8;
+}
+
+.barra-lista h2 {
+    margin: 0;
+    color: #344d3c;
+    font-size: 22px;
+}
+
+#mensaje-vacio {
+    padding: 30px 15px;
+    color: #89958d;
+    text-align: center;
+    background-color: #f8faf7;
+    border: 1px dashed #d5dfd6;
+    border-radius: 10px;
+}
+
+
+/* =====================================
+   7. ELEMENTOS DE LA LISTA
+===================================== */
+
+#lista-productos {
+    margin: 15px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+#lista-productos li {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 10px;
+    padding: 15px;
+    background-color: #f8faf7;
+    border: 1px solid #e8ede8;
+    border-radius: 10px;
+    transition: background-color 0.2s;
+}
+
+#lista-productos li:hover {
+    background-color: #f0f6ef;
+}
+
+#lista-productos input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #32845a;
+    cursor: pointer;
+}
+
+.nombre-producto {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+
+/* Productos completados */
+
+.completado .nombre-producto {
+    color: #9aa49d;
+    text-decoration: line-through;
+}
+
+
+/* Botón eliminar */
+
+.btn-eliminar {
+    padding: 5px 9px;
+    background-color: #fcebea;
+    color: #bd4943;
+    font-size: 11px;
+    border-radius: 6px;
+}
+
+.btn-eliminar:hover {
+    background-color: #f7d8d5;
+}
+
+
+/* =====================================
+   8. PIE DE PÁGINA
+===================================== */
+
+.pie-pagina {
+    padding: 20px;
+    color: #548266;
+    text-align: center;
+    font-weight: bold;
+}
+
+.pie-pagina p {
+    margin: 0;
+}
+
