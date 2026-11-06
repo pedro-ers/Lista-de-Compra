@@ -1,5 +1,25 @@
-let productos = [];
+const CLAVE_ALMACEN = "lista-compra:productos";
+let productos = cargarProductos();
 let ordenAscendente = true;
+
+function cargarProductos() {
+    try {
+        const datos = JSON.parse(localStorage.getItem(CLAVE_ALMACEN));
+
+        return Array.isArray(datos) ? datos : [];
+    } catch (error) {
+        console.warn("No se pudo leer la lista guardada:", error);
+        return [];
+    }
+}
+
+function guardarProductos() {
+    try {
+        localStorage.setItem(CLAVE_ALMACEN, JSON.stringify(productos));
+    } catch (error) {
+        console.warn("No se pudo guardar la lista:", error);
+    }
+}
 
 const formulario = document.getElementById("formulario-producto");
 const inputProduct = document.getElementById("input-producto");
@@ -18,6 +38,7 @@ function AgregarProducto() {
         completado : false
     });
 
+    guardarProductos();
     renderLista();
 
     inputProduct.value = "";
@@ -61,6 +82,7 @@ function renderLista() {
                 return;
 
             productoActualizado.completado = checkbox.checked;
+            guardarProductos();
             renderLista();
         });
 
@@ -69,6 +91,7 @@ function renderLista() {
                 return item.id !== idProducto;
             });
 
+            guardarProductos();
             renderLista();
         });
 
@@ -111,6 +134,7 @@ btnOrdenar.addEventListener("click", function() {
         btnOrdenar.textContent = "Ordenar A-Z";
     }
 
+    guardarProductos();
     renderLista();
 });
 
