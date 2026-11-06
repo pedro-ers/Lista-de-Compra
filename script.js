@@ -13,6 +13,7 @@ function AgregarProducto() {
         return;
 
     productos.push({
+        id : crypto.randomUUID(),
         nombre : nombre,
         completado : false
     });
@@ -49,14 +50,23 @@ function renderLista() {
 
         elemento.classList.toggle("completado", producto.completado)
 
+        const idProducto = producto.id;
+
         checkbox.addEventListener("change", function() {
-            producto.completado = checkbox.checked;
+            const productoActualizado = productos.find(function(item) {
+                return item.id === idProducto;
+            });
+
+            if (!productoActualizado)
+                return;
+
+            productoActualizado.completado = checkbox.checked;
             renderLista();
         });
 
         botonEliminar.addEventListener("click", function() {
             productos = productos.filter(function(item) {
-                return item !== producto;
+                return item.id !== idProducto;
             });
 
             renderLista();
