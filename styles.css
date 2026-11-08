@@ -191,6 +191,15 @@ button {
     background-color: #f0f6ef;
 }
 
+.fila-producto {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+}
+
 #lista-productos input[type="checkbox"] {
     width: 18px;
     height: 18px;

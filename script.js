@@ -49,11 +49,13 @@ function AgregarProducto() {
 
 function crearFila(producto) {
     const elemento = document.createElement("li");
+    const etiqueta = document.createElement("label");
     const checkbox = document.createElement("input");
     const nombreProducto = document.createElement("span");
     const botonEliminar = document.createElement("button");
 
     elemento.dataset.id = producto.id;
+    etiqueta.classList.add("fila-producto");
 
     checkbox.type = "checkbox";
     checkbox.checked = producto.completado;
@@ -64,6 +66,7 @@ function crearFila(producto) {
     botonEliminar.textContent = "Eliminar";
     botonEliminar.type = "button";
     botonEliminar.classList.add("btn-eliminar");
+    botonEliminar.setAttribute("aria-label", "Eliminar " + producto.nombre);
 
     elemento.classList.toggle("completado", producto.completado);
 
@@ -91,8 +94,10 @@ function crearFila(producto) {
         renderLista();
     });
 
-    elemento.appendChild(checkbox);
-    elemento.appendChild(nombreProducto);
+    etiqueta.appendChild(checkbox);
+    etiqueta.appendChild(nombreProducto);
+
+    elemento.appendChild(etiqueta);
     elemento.appendChild(botonEliminar);
 
     return elemento;
@@ -101,9 +106,11 @@ function crearFila(producto) {
 function actualizarFila(fila, producto) {
     const checkbox = fila.querySelector('input[type="checkbox"]');
     const nombreProducto = fila.querySelector(".nombre-producto");
+    const botonEliminar = fila.querySelector(".btn-eliminar");
 
     checkbox.checked = producto.completado;
     nombreProducto.textContent = producto.nombre;
+    botonEliminar.setAttribute("aria-label", "Eliminar " + producto.nombre);
 
     fila.classList.toggle("completado", producto.completado);
 }
