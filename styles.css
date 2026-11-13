@@ -155,6 +155,13 @@ button {
     font-size: 22px;
 }
 
+/* Contador de estado: visible para todos y anunciado por lectores de pantalla */
+.estado-lista {
+    margin: 10px 0 0;
+    color: #405548;
+    font-size: 14px;
+}
+
 #mensaje-vacio {
     padding: 30px 15px;
     color: #89958d;

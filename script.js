@@ -115,6 +115,30 @@ function actualizarFila(fila, producto) {
     fila.classList.toggle("completado", producto.completado);
 }
 
+// Actualiza el contador de la lista. Como vive en una región aria-live,
+// cada cambio de texto se anuncia a los lectores de pantalla.
+function actualizarEstadoLista() {
+    const estadoLista = document.getElementById("estado-lista");
+
+    const total = productos.length;
+    const completados = productos.filter(function(producto) {
+        return producto.completado;
+    }).length;
+
+    // Concordancia singular/plural para que el anuncio suene natural.
+    const textoProductos = total === 1 ? "1 producto" : total + " productos";
+    const textoCompletados = completados === 1
+        ? "1 completado"
+        : completados + " completados";
+
+    const texto = textoProductos + ", " + textoCompletados;
+
+    // Solo escribimos si el texto cambió: evita repetir el anuncio al ordenar.
+    if (estadoLista.textContent !== texto) {
+        estadoLista.textContent = texto;
+    }
+}
+
 function renderLista() {
     const filasPorId = new Map();
 
@@ -145,6 +169,9 @@ function renderLista() {
 
     const mensajeVacio = document.getElementById("mensaje-vacio");
     mensajeVacio.style.display = productos.length === 0 ? "block" : "none";
+
+    // Mantiene sincronizado el contador visible y su anuncio accesible.
+    actualizarEstadoLista();
 }
 
 formulario.addEventListener("submit", function(evento){
