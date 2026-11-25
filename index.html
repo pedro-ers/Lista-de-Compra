@@ -24,7 +24,8 @@
 
     <main class="contenedor">
         
-        <form id="formulario-producto">
+        <!-- novalidate: usamos validación propia para mostrar un mensaje accesible -->
+        <form id="formulario-producto" novalidate>
             <label for="input-producto">Agregar un producto</label>
 
             <div class="grupo-entrada">
@@ -33,10 +34,16 @@
                     id="input-producto"
                     placeholder="Escribe un producto"
                     autocomplete="off"
+                    required
+                    maxlength="80"
+                    aria-describedby="error-producto"
                 >
 
                 <button type="submit">Agregar</button>
             </div>
+
+            <!-- role="alert" hace que el error se anuncie en cuanto se muestra -->
+            <p id="error-producto" class="mensaje-error" role="alert" hidden></p>
         </form>
 
         <section class="seccion-lista">

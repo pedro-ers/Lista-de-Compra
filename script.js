@@ -24,14 +24,42 @@ function guardarProductos() {
 
 const formulario = document.getElementById("formulario-producto");
 const inputProduct = document.getElementById("input-producto");
+const errorProducto = document.getElementById("error-producto");
 const listaProducto = document.getElementById("lista-productos");
 const btnOrdenar = document.getElementById("btn-ordenar");
+
+// Muestra el error del formulario, marca el campo como inválido y le da el foco.
+function mostrarErrorProducto(mensaje) {
+    errorProducto.textContent = mensaje;
+    errorProducto.hidden = false;
+    inputProduct.setAttribute("aria-invalid", "true");
+    inputProduct.focus();
+}
+
+// Oculta el error cuando el campo vuelve a ser válido.
+function limpiarErrorProducto() {
+    errorProducto.textContent = "";
+    errorProducto.hidden = true;
+    inputProduct.removeAttribute("aria-invalid");
+}
 
 function AgregarProducto() {
     const nombre = inputProduct.value.trim();
 
-    if (nombre === "")
+    // Validación propia (el formulario usa novalidate) para mostrar
+    // siempre un mensaje visible y anunciado de forma consistente.
+    if (nombre === "") {
+        mostrarErrorProducto("Escribe un nombre antes de agregar el producto.");
         return;
+    }
+
+    // Defensa extra: maxlength ya limita la entrada en el navegador.
+    if (nombre.length > 80) {
+        mostrarErrorProducto("El nombre no puede superar los 80 caracteres.");
+        return;
+    }
+
+    limpiarErrorProducto();
 
     productos.push({
         id : crypto.randomUUID(),
@@ -43,8 +71,7 @@ function AgregarProducto() {
     renderLista();
 
     inputProduct.value = "";
-    inputProduct
-    .focus();
+    inputProduct.focus();
 }
 
 function crearFila(producto) {
@@ -86,12 +113,20 @@ function crearFila(producto) {
     });
 
     botonEliminar.addEventListener("click", function() {
+        // Guardamos la posición antes de filtrar: después ya no existe.
+        const indiceEliminado = productos.findIndex(function(item) {
+            return item.id === idProducto;
+        });
+
         productos = productos.filter(function(item) {
             return item.id !== idProducto;
         });
 
         guardarProductos();
         renderLista();
+
+        // La fila enfocada desaparece; llevamos el foco a un lugar predecible.
+        enfocarTrasEliminar(indiceEliminado);
     });
 
     etiqueta.appendChild(checkbox);
@@ -113,6 +148,34 @@ function actualizarFila(fila, producto) {
     botonEliminar.setAttribute("aria-label", "Eliminar " + producto.nombre);
 
     fila.classList.toggle("completado", producto.completado);
+}
+
+// Tras eliminar una fila, coloca el foco en el siguiente producto.
+// Si se borró el último, usa el anterior; si la lista queda vacía,
+// devuelve el foco al campo de texto.
+function enfocarTrasEliminar(indiceEliminado) {
+    if (productos.length === 0) {
+        inputProduct.focus();
+        return;
+    }
+
+    // El producto siguiente ocupa ahora el índice del borrado;
+    // si borramos el último, el índice se ajusta al anterior.
+    const indiceDestino = Math.min(indiceEliminado, productos.length - 1);
+    const filaDestino = listaProducto.children[indiceDestino];
+
+    if (!filaDestino) {
+        inputProduct.focus();
+        return;
+    }
+
+    const checkboxDestino = filaDestino.querySelector('input[type="checkbox"]');
+
+    if (checkboxDestino) {
+        checkboxDestino.focus();
+    } else {
+        inputProduct.focus();
+    }
 }
 
 // Actualiza el contador de la lista. Como vive en una región aria-live,
@@ -173,6 +236,13 @@ function renderLista() {
     // Mantiene sincronizado el contador visible y su anuncio accesible.
     actualizarEstadoLista();
 }
+
+// Al escribir contenido válido, ocultamos el error anterior.
+inputProduct.addEventListener("input", function() {
+    if (!errorProducto.hidden && inputProduct.value.trim() !== "") {
+        limpiarErrorProducto();
+    }
+});
 
 formulario.addEventListener("submit", function(evento){
     evento.preventDefault();

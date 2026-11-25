@@ -97,6 +97,18 @@ body {
     box-shadow: 0 0 0 3px rgba(61, 150, 103, 0.12);
 }
 
+/* Estado inválido: refuerza visualmente el mensaje de error */
+#input-producto[aria-invalid="true"] {
+    border-color: #a4262c;
+}
+
+/* Mensaje de error del formulario (se muestra al quitar el atributo hidden) */
+.mensaje-error {
+    margin: 8px 0 0;
+    color: #a4262c;
+    font-size: 14px;
+}
+
 
 /* =====================================
    5. BOTONES
